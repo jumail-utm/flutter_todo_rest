@@ -14,8 +14,16 @@ import '../models/todo.dart';
 
 class DataService {
   //  Localhost JSON Server
+  // static const String baseUrl =
+  //     'http://192.168.0.4:3000'; // Change the IP address to your PC's IP. Remain the port number 3000 unchanged.
+
+  //  Live server on Heroku
+  // static const String baseUrl =
+  //     'https://jumail-utm-rest-node-mysql.herokuapp.com';
+
+  // Live server on Firebase
   static const String baseUrl =
-      'http://192.168.0.4:3000'; // Change the IP address to your PC's IP. Remain the port number 3000 unchanged.
+      'https://us-central1-jumail-backend-firebase-rest.cloudfunctions.net/api';
 
   // JSON server online
   // static const String baseUrl =
@@ -58,7 +66,7 @@ class DataService {
     final response = await http.delete('$baseUrl/$endpoint');
 
     if (response.statusCode == 200) {
-      return jsonDecode(response.body);
+      return; // jsonDecode(response.body);
     }
     throw response;
   }
@@ -73,7 +81,7 @@ class DataService {
   }
 
   // TODO 6: Complete this method. It is meant for updating the status of a given TODO  (whether is completed or not) in the server
-  Future<Todo> updateTodoStatus({int id, bool status}) async {
+  Future<Todo> updateTodoStatus({String id, bool status}) async {
     final json = await patch('todos/$id', data: {'completed': status});
     return Todo.fromJson(json);
   }
@@ -85,9 +93,8 @@ class DataService {
   }
 
   // TODO 8: Complete this method. It is meant for deleting a given TODO  from the server
-  Future<Todo> deleteTodo({int id}) async {
-    final json = await delete('todos/$id');
-    return Todo.fromJson(json);
+  Future deleteTodo({String id}) async {
+    await delete('todos/$id');
   }
 }
 

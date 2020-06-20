@@ -10,7 +10,7 @@
 // TODO Complete the definition of class Todo. Add the methods, fromJson() and toJson()
 
 class Todo {
-  int id;
+  String id;
   String title;
   bool completed;
 
